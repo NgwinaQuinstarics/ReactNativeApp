@@ -20,10 +20,17 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-    <ScrollView>
+      <ScrollView>
+        {people.map((item) =>{
+          return(
+            <View key={item.key}>
+              <Text style={styles.item}>{item.name}</Text>
+            </View>
       
-    </ScrollView>
-
+          )
+        })}
+      
+      </ScrollView>
     </View>
   );
 }
@@ -32,14 +39,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // padding: 20
   },
 
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  item: {
+    backgroundColor: 'pink',
+    fontSize: 24,
+    padding: 30,
     marginBottom: 20
   },
 
