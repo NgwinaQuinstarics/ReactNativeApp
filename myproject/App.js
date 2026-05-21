@@ -1,87 +1,60 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 
 export default function App() {
 
-  // Default values (editable)
-  const [people, setPeople] = useState([ 
-    {name: "joy", key: 3}, 
-    {name: "michael", key: 4},
-    {name: "sarah", key: 5},
-    {name: "david", key: 6},
-    {name: "emma", key: 7},
-    {name: "oliver", key: 8},
-    {name: "ava", key: 9},
-    {name: "william", key: 10},
-     
+  const [people, setPeople] = useState([
+    { name: 'Joy', id: '1' },
+    { name: 'Michael', id: '2' },
+    { name: 'Sarah', id: '3' },
+    { name: 'David', id: '4' },
+    { name: 'Emma', id: '5' },
   ]);
-  
+
+  const pressHandler = (id) => {
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id !== id);
+    });
+  };
 
   return (
-    <View style={styles.container}>
-
-      {/* <ScrollView>
-        {people.map((item) =>{
-          return(
-            <View key={item.key}>
-              <Text style={styles.item}>{item.name}</Text>
-            </View>
-      
-          )
-        })}
-      
-      </ScrollView> */}
-
-
+    <SafeAreaView style={styles.container}>
 
       <FlatList
-      keyExtractor={(item)=>item.id}
         data={people}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View key={item.key}>
-            <Text style={styles.item}>{item.name}</Text>
-          </View>
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.item}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
         )}
       />
-    </View>
+
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // padding: 20
   },
 
   item: {
+    padding: 30,
+    marginTop: 20,
     backgroundColor: 'pink',
     fontSize: 24,
-    padding: 30,
-    marginBottom: 20
-  },
-
-  input: {
-    borderWidth: 2,
-    borderColor: '#777',
-    padding: 10,
-    margin: 10,
-    width: 220,
-    borderRadius: 8
-  },
-
-  result: {
-    marginTop: 25,
-    padding: 15,
-    backgroundColor: '#f2f2f2',
     borderRadius: 10,
-    width: 250
   },
-
-  resultText: {
-    fontSize: 18,
-    marginBottom: 5
-  }
 });
